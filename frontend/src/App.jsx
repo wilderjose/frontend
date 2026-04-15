@@ -2,8 +2,8 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import LoginPage from "./pages/login/LoginPage";  // ✅ Cambiar Login a login
-import Dashboard from "./pages/dashboard/dashboard";
-import MatriculaPage from "./pages/matricula/matriculaPage";
+import Dashboard from "./pages/dashboard/Dashboard";
+import MatriculaPage from "./pages/matricula/MatriculaPage";
 import RecibosPage from "./pages/recibos/RecibosPage";
 import UsuariosPage from "./pages/admin/UsuariosPage";
 import ProtectedRoute from "./components/ProtectedRoute";

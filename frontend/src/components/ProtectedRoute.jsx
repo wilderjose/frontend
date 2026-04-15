@@ -7,12 +7,12 @@ function ProtectedRoute({ children, rolesPermitidos = [] }) {
 
     // Si no hay token, redirigir al login
     // Si est aes una ruta protegida mia
+    //eres un cabron bro
     if (!token) {
         return <Navigate to="/login" />;
     }
 
     // Si se requieren roles específicos y el usuario no tiene uno permitido
-    //hola
     if (rolesPermitidos.length > 0 && !rolesPermitidos.includes(user?.rol)) {
         return <Navigate to="/dashboard" />;
     }
