@@ -1,20 +1,51 @@
-import { useState } from 'react'
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+// src/App.jsx - CORREGIDO
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import LoginPage from "./pages/login/LoginPage";  // ✅ Cambiar Login a login
+import Dashboard from "./pages/dashboard/Dashboard";
+import MatriculaPage from "./pages/matricula/MatriculaPage";
+import RecibosPage from "./pages/recibos/RecibosPage";
+import UsuariosPage from "./pages/admin/UsuariosPage";
+import ProtectedRoute from "./components/ProtectedRoute";
+import "./App.css";
 
-import './App.css'
-
-import Login from './pages/login/Login'
-import Dashboard from './pages/dashboard/dashboard' // crea este archivo
-
-function App(){
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-      </Routes>
-    </BrowserRouter>
-  )
+function App() {
+    return (
+        <AuthProvider>
+            <Router>
+                <Routes>
+                    <Route path="/login" element={<LoginPage />} />
+                    <Route path="/" element={<Navigate to="/login" />} />
+                    
+                    <Route path="/dashboard" element={
+                        <ProtectedRoute>
+                            <Dashboard />
+                        </ProtectedRoute>
+                    } />
+                    
+                    <Route path="/dashboard/matricula" element={
+                        <ProtectedRoute rolesPermitidos={['admin', 'secretaria']}>
+                            <MatriculaPage />
+                        </ProtectedRoute>
+                    } />
+                    
+                    <Route path="/dashboard/recibos" element={
+                        <ProtectedRoute rolesPermitidos={['admin', 'secretaria', 'cajero']}>
+                            <RecibosPage />
+                        </ProtectedRoute>
+                    } />
+                    
+                    <Route path="/dashboard/usuarios" element={
+                        <ProtectedRoute rolesPermitidos={['admin']}>
+                            <UsuariosPage />
+                        </ProtectedRoute>
+                    } />
+                    
+                    <Route path="*" element={<Navigate to="/login" />} />
+                </Routes>
+            </Router>
+        </AuthProvider>
+    );
 }
 
-export default App
+export default App;
