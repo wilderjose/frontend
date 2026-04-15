@@ -11,6 +11,7 @@ function ProtectedRoute({ children, rolesPermitidos = [] }) {
     }
 
     // Si se requieren roles específicos y el usuario no tiene uno permitido
+    //hola
     if (rolesPermitidos.length > 0 && !rolesPermitidos.includes(user?.rol)) {
         return <Navigate to="/dashboard" />;
     }
